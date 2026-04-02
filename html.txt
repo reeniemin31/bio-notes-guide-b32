@@ -1,0 +1,159 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biology Study Guide - Unit 4</title>
+    <style>
+        :root {
+            --cute-pink: #ffcfdf;
+            --text-gray: #444;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif; /* Looks like a school paper */
+            background-color: #ffffff;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        /* --- THE FAKE COVER PAGE STYLES --- */
+        #study-page {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .secret-trigger {
+            cursor: text;
+            color: black;
+            font-weight: normal;
+        }
+
+        /* --- THE HIDDEN CHAT STYLES --- */
+        #chat-interface {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 380px;
+            height: 550px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+            border: 2px solid var(--cute-pink);
+            z-index: 1000;
+        }
+
+        .chat-header {
+            background: var(--cute-pink);
+            padding: 15px;
+            text-align: center;
+            color: #d880a3;
+            font-weight: bold;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #fffafa;
+        }
+
+        .bubble {
+            max-width: 75%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+        }
+
+        .sent { align-self: flex-end; background: var(--cute-pink); color: #7a4a5d; border-bottom-right-radius: 2px; }
+        .received { align-self: flex-start; background: #eee; color: #555; border-bottom-left-radius: 2px; }
+
+        .input-box {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 8px 15px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="study-page">
+        <h1>Unit 4: Plant Biology</h1>
+        <hr>
+        <h3>Overview of Photosynthesis</h3>
+        <p>Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with the assistance of <span class="secret-trigger" ondblclick="openChat()">chlorophyll</span>. This process generally involves the green pigment and generates oxygen as a byproduct.</p>
+        <p>Key Stages:</p>
+        <ul>
+            <li>Absorption of light</li>
+            <li>Electron transport</li>
+            <li>Generation of ATP</li>
+            <li>Carbon fixation</li>
+        </ul>
+        <p style="color: #999; font-size: 0.8em;">Last edited: Oct 2023</p>
+    </div>
+
+    <div id="chat-interface">
+        <div class="chat-header">Study Group (2) ✨</div>
+        <div class="messages" id="message-area">
+            <div class="bubble received">Is your mom nearby?</div>
+            <div class="bubble sent">No, she thinks I'm studying bio!</div>
+            <div class="bubble received">Perfect. This layout is so cute lol.</div>
+        </div>
+        <div class="input-box">
+            <input type="text" placeholder="Send a message..." id="user-input">
+        </div>
+    </div>
+
+    <script>
+        const chat = document.getElementById('chat-interface');
+        const studyPage = document.getElementById('study-page');
+
+        // Function to open the secret chat
+        function openChat() {
+            chat.style.display = 'flex';
+            studyPage.style.filter = 'blur(5px)'; // Subtle blur for the background
+        }
+
+        // PANIC BUTTON: Press 'Escape' to hide instantly
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                chat.style.display = 'none';
+                studyPage.style.filter = 'none';
+            }
+        });
+
+        // Simple mock-up of sending a message
+        const input = document.getElementById('user-input');
+        const area = document.getElementById('message-area');
+
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && input.value !== "") {
+                const newMsg = document.createElement('div');
+                newMsg.classList.add('bubble', 'sent');
+                newMsg.innerText = input.value;
+                area.appendChild(newMsg);
+                input.value = "";
+                area.scrollTop = area.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
+
